@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TodoApplication</string>
+    <string name="todo">todo</string>
+    <string name="timestamp">timestamp</string>
+    <string name="note_title">Note Title</string>
+    <string name="enter_note_title">Enter Note Title</string>
+    <string name="enter_note_description">Enter Note description</string>
+    <string name="button" />
+    <string name="Notes">Notes</string>
+    <string name="update_note">Update Note</string>
+    <string name="edit_note">Edit</string>
+    <string name="save_note">Save Note</string>
+
+</resources>
