@@ -2,7 +2,6 @@ package com.example.todoapplication
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -22,9 +21,9 @@ class AddEditNoteActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("ArrayList", "Inside AddEditNoteActivity onCreate() method")
+        // Log.i("ArrayList", "Inside AddEditNoteActivity onCreate() method")
         setContentView(R.layout.activity_add_edit_note)
-        Log.i("ArrayList", "AddEditNote Activity's layout inflated")
+        //Log.i("ArrayList", "AddEditNote Activity's layout inflated")
 
         noteTitleEdt = findViewById(R.id.idEditNoteTitle)
         noteDescriptionEdt = findViewById(R.id.idEditNoteDescription)
@@ -32,27 +31,24 @@ class AddEditNoteActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference(getString(R.string.Notes))
 
 
-        val noteType = intent.getStringExtra("noteType")
+        val noteType = intent.getStringExtra(Static.noteType)
 
-        Log.i("ArrayList", "Data through intent received in AddEditNote Activity")
+//        Log.i("ArrayList", "Data through intent received in AddEditNote Activity")
 
-        if (noteType.equals(getString(R.string.edit_note)))
-        {
-            val noteTitle = intent.getStringExtra("noteTitle")
-            val noteDesc = intent.getStringExtra("noteDescription")
+        if (noteType.equals(getString(R.string.edit_note))) {
+            val noteTitle = intent.getStringExtra(Static.noteTitle)
+            val noteDesc = intent.getStringExtra(Static.noteDescription)
 
             addUpdateBtn.text = getString(R.string.update_note)
             noteTitleEdt.setText(noteTitle)
             noteDescriptionEdt.setText(noteDesc)
-        }
-        else
-        {
+        } else {
             addUpdateBtn.text = getString(R.string.save_note)
         }
 
-        addUpdateBtn.setOnClickListener{
+        addUpdateBtn.setOnClickListener {
 
-            Log.i("ArrayList", "Button Clicked in AddEditNoteActivity")
+//            Log.i("ArrayList", "Button Clicked in AddEditNoteActivity")
             val noteTitle = noteTitleEdt.text.toString()
             val noteDescription = noteDescriptionEdt.text.toString()
             val sdf = SimpleDateFormat("DD MMM, yyyy - HH:mm")
@@ -60,8 +56,7 @@ class AddEditNoteActivity : AppCompatActivity() {
             val complete = "no"
 
             val note = Note(noteTitle, noteDescription, currentDate, complete)
-            if (addUpdateBtn.text.equals(R.string.save_note))
-            {
+            if (addUpdateBtn.text.equals(R.string.save_note)) {
                 database.child(noteTitle).setValue(note).addOnSuccessListener {
                     noteTitleEdt.text.clear()
                     noteDescriptionEdt.text.clear()
@@ -70,17 +65,15 @@ class AddEditNoteActivity : AppCompatActivity() {
                 }.addOnFailureListener {
                     Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
                 }
-            }
-            else
-            {
-                val note = mapOf(
-                    "title" to noteTitle,
-                    "description" to noteDescription,
-                    "timeStamp" to currentDate,
-                    "isComplete" to complete
+            } else {
+                val note1 = mapOf(
+                    Static.dataBasTitle to noteTitle,
+                    Static.dataBaseDescription to noteDescription,
+                    Static.dataBaseTimeStamp to currentDate,
+                    Static.dataBaseIsComplete to complete
                 )
 
-                database.child(noteTitle).updateChildren(note).addOnSuccessListener {
+                database.child(noteTitle).updateChildren(note1).addOnSuccessListener {
                     noteTitleEdt.text.clear()
                     noteDescriptionEdt.text.clear()
                     Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT).show()

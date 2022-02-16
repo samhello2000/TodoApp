@@ -21,33 +21,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("ArrayList", "Inside Main Activity onCreate() method")
+//        Log.i("ArrayList", "Inside Main Activity onCreate() method")
         setContentView(R.layout.activity_main)
-        Log.i("ArrayList", "MainActivity layout inflated")
+//        Log.i("ArrayList", "MainActivity layout inflated")
         notesRV = findViewById(R.id.idRVNotes)
-        Log.i("ArrayList", "RecyclerView Variable inflated.")
+//        Log.i("ArrayList", "RecyclerView Variable inflated.")
         notesRV.layoutManager = LinearLayoutManager(this)
-        Log.i("ArrayList", "LayoutManager added to RecyclerView.")
+//        Log.i("ArrayList", "LayoutManager added to RecyclerView.")
         notesRV.setHasFixedSize(true)
 
         notesArrayList = arrayListOf()
-        Log.i("ArrayList", notesArrayList.size.toString() + " one After notesArrayList declaration")
+//        Log.i("ArrayList", notesArrayList.size.toString() + " one After notesArrayList declaration")
 
 //        val adapter=NoteRVAdapter(notesArrayList)
 //        notesRV.adapter = adapter
 
-        dbref = FirebaseDatabase.getInstance().getReference(getString(R.string.Notes))
-        Log.i("ArrayList", "Database reference assigned to variable")
+        dbref = FirebaseDatabase.getInstance().getReference(Static.notes)
+//        Log.i("ArrayList", "Database reference assigned to variable")
         getNotesData()
-        Log.i("ArrayList", notesArrayList.size.toString() + " two After getNotes() get called")
+//        Log.i("ArrayList", notesArrayList.size.toString() + " two After getNotes() get called")
 
         addFAB = findViewById(R.id.idFABAddNote)
-        Log.i("ArrayList", "Floating button variable inflated")
+//        Log.i("ArrayList", "Floating button variable inflated")
         addFAB.setOnClickListener {
-            Log.i("ArrayList", "Inside Floating button onClickListener. Just Clicked!!!")
+//            Log.i("ArrayList", "Inside Floating button onClickListener. Just Clicked!!!")
             val intent = Intent(this, AddEditNoteActivity::class.java)
             startActivity(intent)
-            Log.i("ArrayList", "AddEditNoteActivity started")
+//            Log.i("ArrayList", "AddEditNoteActivity started")
             //getNotesData()
             //this.finish()
         }
@@ -55,13 +55,14 @@ class MainActivity : AppCompatActivity() {
         notesRV.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                Log.i("ArrayList", "RecyclerView element clicked!!!")
+//                Log.i("ArrayList", "RecyclerView element clicked!!!")
                 val intent = Intent(this@MainActivity, AddEditNoteActivity::class.java)
-                intent.putExtra("noteType", "Edit")
-                intent.putExtra("noteTitle", notesArrayList[position].title)
-                intent.putExtra("noteDescription", notesArrayList[position].description)
+                intent.putExtra(Static.noteType, "Edit")
+                intent.putExtra(Static.noteTitle, notesArrayList[position].title)
+                intent.putExtra(Static.noteDescription, notesArrayList[position].description)
+                //intent.putExtra("noteIsComplete", notesArrayList[position].isCompleted)
                 startActivity(intent)
-                Log.i("ArrayList", "In AddEditNoteActivity to edit the Note.")
+//                Log.i("ArrayList", "In AddEditNoteActivity to edit the Note.")
             }
         })
     }
@@ -75,16 +76,13 @@ class MainActivity : AppCompatActivity() {
         this.addOnChildAttachStateChangeListener(object :
             RecyclerView.OnChildAttachStateChangeListener {
             override fun onChildViewDetachedFromWindow(view: View) {
-                Log.i("ArrayList", "Inside onChildViewDetachedFromWindow() method")
+//                Log.i("ArrayList", "Inside onChildViewDetachedFromWindow() method")
                 // view.setOnClickListener(null)
             }
 
             override fun onChildViewAttachedToWindow(view: View) {
                 view.setOnClickListener {
-                    Log.i(
-                        "ArrayList",
-                        "Inside onChildViewAttachedToWindow method....view.setOnClickListener"
-                    )
+//                    Log.i("ArrayList", "Inside onChildViewAttachedToWindow method....view.setOnClickListener" )
                     val holder = getChildViewHolder(view)
                     onClickListener.onItemClicked(holder.adapterPosition, view)
                 }
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getNotesData() {
-        dbref = FirebaseDatabase.getInstance().getReference(getString(R.string.Notes))
+        dbref = FirebaseDatabase.getInstance().getReference(Static.notes)
 
         dbref.addValueEventListener(object : ValueEventListener {
 
@@ -103,24 +101,27 @@ class MainActivity : AppCompatActivity() {
                     for (noteSnapshot in snapshot.children) {
 
                         val note = noteSnapshot.getValue(Note::class.java)
+                        Log.i("ArrayList", note.toString())
 //                        if(notesArrayList.contains(note))
 //                        {
 //                            continue
 //                        }
 //                        else
 //                        {
-                            notesArrayList.add(note!!)
+                        notesArrayList.add(note!!)
 //                        }
                     }
-                    Log.i("ArrayList", notesArrayList.size.toString() + " three In getNotes() after for loop")
-                    val adapter = NoteRVAdapter(notesArrayList)
-                    notesRV.adapter = adapter
+                    Log.i("ArrayList", notesArrayList.toString())
                     Log.i(
                         "ArrayList",
-                        "Inside getNotesData() method adapter is attached to recyclerView"
+                        "SIZE=" + notesArrayList.size.toString() + " three In getNotes() after for loop"
                     )
+                    val adapter = NoteRVAdapter(notesArrayList)
+                    notesRV.adapter = adapter
+//                    Log.i("ArrayList", "Inside getNotesData() method adapter is attached to recyclerView")
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
     }

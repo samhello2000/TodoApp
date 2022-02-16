@@ -10,5 +10,6 @@
     <string name="update_note">Update Note</string>
     <string name="edit_note">Edit</string>
     <string name="save_note">Save Note</string>
+    <string name="task_completed_or_not_enter_yes_or_no">Task Completed or Not? Enter yes or no</string>
 
 </resources>

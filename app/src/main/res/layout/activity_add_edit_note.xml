@@ -26,8 +26,8 @@
 
     <EditText
         android:id="@+id/idEditNoteDescription"
-        android:layout_width="392dp"
-        android:layout_height="465dp"
+        android:layout_width="401dp"
+        android:layout_height="478dp"
         android:layout_below="@id/idEditNoteTitle"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
@@ -41,6 +41,7 @@
         android:singleLine="false"
         android:textColor="@color/black"
         android:textColorHint="@color/black" />
+
 
     <Button
         android:id="@+id/idBtnAddUpdate"
