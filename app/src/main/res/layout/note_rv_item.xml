@@ -15,15 +15,14 @@
 
         <ImageView
             android:id="@+id/idIVDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:padding="4dp"
-            android:src="@drawable/ic_done"
-            app:tint="@color/white_shade_2"
-            android:contentDescription="@string/todo" />
+            android:src="@drawable/tickmark"
+            />
 
         <TextView
             android:id="@+id/idTVNoteTitle"

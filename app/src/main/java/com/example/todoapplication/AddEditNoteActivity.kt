@@ -21,9 +21,7 @@ class AddEditNoteActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Log.i("ArrayList", "Inside AddEditNoteActivity onCreate() method")
         setContentView(R.layout.activity_add_edit_note)
-        //Log.i("ArrayList", "AddEditNote Activity's layout inflated")
 
         noteTitleEdt = findViewById(R.id.idEditNoteTitle)
         noteDescriptionEdt = findViewById(R.id.idEditNoteDescription)
@@ -32,9 +30,6 @@ class AddEditNoteActivity : AppCompatActivity() {
 
 
         val noteType = intent.getStringExtra(Static.noteType)
-
-//        Log.i("ArrayList", "Data through intent received in AddEditNote Activity")
-
         if (noteType.equals(getString(R.string.edit_note))) {
             val noteTitle = intent.getStringExtra(Static.noteTitle)
             val noteDesc = intent.getStringExtra(Static.noteDescription)
@@ -48,7 +43,6 @@ class AddEditNoteActivity : AppCompatActivity() {
 
         addUpdateBtn.setOnClickListener {
 
-//            Log.i("ArrayList", "Button Clicked in AddEditNoteActivity")
             val noteTitle = noteTitleEdt.text.toString()
             val noteDescription = noteDescriptionEdt.text.toString()
             val sdf = SimpleDateFormat("DD MMM, yyyy - HH:mm")
